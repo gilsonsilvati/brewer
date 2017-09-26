@@ -36,6 +36,9 @@
 		
 		<!-- Thymeleaf -->
 		<thymeleaf.version>3.0.7.RELEASE</thymeleaf.version>
+		
+		<!-- Bean Validation / Hibernate Validator -->
+		<hibernate-validator.version>6.0.2.Final</hibernate-validator.version>
 	</properties>
 	
 	<!-- Gerenciador de Dependencias do Spring Framework -->
@@ -78,6 +81,13 @@
 			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf-spring4</artifactId>
 			<version>${thymeleaf.version}</version>
+		</dependency>
+		
+		<!-- Bean Validation / Hibernate Validator -->
+  		<dependency>
+        	<groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
 		</dependency>
 	</dependencies>
 	
