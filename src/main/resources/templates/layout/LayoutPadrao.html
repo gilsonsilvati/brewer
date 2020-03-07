@@ -2,6 +2,7 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,8 +15,10 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/application.css}" />
 		<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/brewer.css}" />
 	</head>
+	
 	<body>
 		<div class="aw-layout-page">
+		
 			<div th:replace="layout/fragments/BarraNavegacao :: layout-navbar"></div>
 	
 			<div th:replace="layout/fragments/MenuLateral :: layout-sidebar"></div>
