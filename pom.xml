@@ -35,7 +35,10 @@
 		<servlet.version>3.1.0</servlet.version>
 		
 		<!-- Thymeleaf -->
-		<thymeleaf.version>3.0.7.RELEASE</thymeleaf.version>
+		<thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+		
+		<!-- Thymeleaf Layout Dialect -->
+		<thymeleaf-layout-dialect.version>2.4.1</thymeleaf-layout-dialect.version>
 		
 		<!-- Bean Validation / Hibernate Validator -->
 		<hibernate-validator.version>6.0.2.Final</hibernate-validator.version>
@@ -69,18 +72,25 @@
 			<scope>provided</scope>
 		</dependency>
 		
-		<!-- Thymeleaf Principal -->
+		<!-- Thymeleaf - Principal -->
 		<dependency>
 			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf</artifactId>
 			<version>${thymeleaf.version}</version>
 		</dependency>
 		
-		<!-- Thymeleaf Integração (Spring) -->
+		<!-- Thymeleaf - Integração (Spring) -->
 		<dependency>
 			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf-spring4</artifactId>
 			<version>${thymeleaf.version}</version>
+		</dependency>
+		
+		<!-- Thymeleaf - Layout Dialect -->
+		<dependency>
+		    <groupId>nz.net.ultraq.thymeleaf</groupId>
+		    <artifactId>thymeleaf-layout-dialect</artifactId>
+		    <version>${thymeleaf-layout-dialect.version}</version>
 		</dependency>
 		
 		<!-- Bean Validation / Hibernate Validator (Implememtação) -->
