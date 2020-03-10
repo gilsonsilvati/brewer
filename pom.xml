@@ -46,6 +46,12 @@
 		<!-- Logging -->
 		<log4j.version>2.6</log4j.version>
 		<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
+		
+		<!-- JPA (API) / Hibernate (Implementação) -->
+		<hibernate.version>5.1.0.Final</hibernate.version>
+		
+		<!-- Commons Lang3 (utilidades) -->
+		<commons-lang.version>3.9</commons-lang.version>
 	</properties>
 	
 	<!-- Gerenciador de Dependencias do Spring Framework -->
@@ -134,6 +140,29 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${jcl-over-slf4j.version}</version>
+		</dependency>
+		
+		<!-- JPA (API) / Hibernate (Implementação) -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Hibernate (Implementação) -> Java 8 support -->
+        <dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-java8</artifactId>
+    		<version>${hibernate.version}</version>
+    		<scope>compile</scope>
+		</dependency>
+		
+		<!-- Commons Lang3 (utilidades) -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.9</version>
 		</dependency>
 		
 	</dependencies>
