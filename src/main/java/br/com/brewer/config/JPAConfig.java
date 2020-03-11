@@ -1,0 +1,62 @@
+package br.com.brewer.config;
+
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import br.com.brewer.model.Cerveja;
+import br.com.brewer.repository.Cervejas;
+
+@Configuration
+@EnableJpaRepositories(basePackageClasses = Cervejas.class) // Pega o pacote padrão (br.com.brewer.repository)
+public class JPAConfig {
+	
+	@Bean
+	public DataSource dataSource() {
+		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
+		dataSourceLookup.setResourceRef(true); // Procura conf. dentro do servidor (META-INF/context.xml)
+		
+		return dataSourceLookup.getDataSource("jdbc/brewerDB");
+	}
+	
+	@Bean
+	public JpaVendorAdapter jpaVendorAdapter() {
+		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+		adapter.setDatabase(Database.MYSQL);
+		adapter.setShowSql(false);
+		adapter.setGenerateDdl(false); // Quem vai gerar será o FlyWay
+		adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
+		
+		return adapter;
+	}
+	
+	@Bean
+	public EntityManagerFactory entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
+		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+		factory.setDataSource(dataSource);
+		factory.setJpaVendorAdapter(jpaVendorAdapter);
+		factory.setPackagesToScan(Cerveja.class.getPackage().getName()); // Qualquer classe: só para pegar o pacote padrão (br.com.brewer.model)
+		factory.afterPropertiesSet();
+		
+		return factory.getObject();
+	}
+	
+	@Bean
+	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(entityManagerFactory);
+		
+		return transactionManager;
+	}
+
+}

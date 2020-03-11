@@ -54,6 +54,9 @@
 		
 		<!-- Commons Lang3 (utilidades) -->
 		<commons-lang.version>3.9</commons-lang.version>
+		
+		<!-- Spring Data JPA -->
+		<spring-data-jpa.version>1.10.2.RELEASE</spring-data-jpa.version>
 	</properties>
 	
 	<!-- Gerenciador de Dependencias do Spring Framework -->
@@ -175,6 +178,12 @@
 			<scope>provided</scope>
 		</dependency>
 		
+		<!-- Spring Data JPA -->
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		    <version>${spring-data-jpa.version}</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
