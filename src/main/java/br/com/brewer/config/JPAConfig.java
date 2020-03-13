@@ -33,7 +33,7 @@ public class JPAConfig {
 	public JpaVendorAdapter jpaVendorAdapter() {
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
 		adapter.setDatabase(Database.MYSQL);
-		adapter.setShowSql(false);
+		adapter.setShowSql(false); // Mostrar log só do log4j2
 		adapter.setGenerateDdl(false); // Quem vai gerar será o FlyWay
 		adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5Dialect");
 		
