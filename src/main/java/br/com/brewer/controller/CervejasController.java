@@ -15,6 +15,7 @@ import br.com.brewer.model.Cerveja;
 import br.com.brewer.model.Origem;
 import br.com.brewer.model.Sabor;
 import br.com.brewer.repository.Estilos;
+import br.com.brewer.service.CadastroCervejaService;
 
 @Controller
 @RequestMapping("/cervejas")
@@ -22,6 +23,9 @@ public class CervejasController {
 	
 	@Autowired
 	private Estilos estilos;
+	
+	@Autowired
+	private CadastroCervejaService cadastroCervejaService;
 	
 	@RequestMapping("/novo")
 	public ModelAndView novo(Cerveja cerveja) {
@@ -35,15 +39,11 @@ public class CervejasController {
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model, RedirectAttributes attributes) {
-//		if (result.hasErrors())
-//			return novo(cerveja);
+		if (result.hasErrors())
+			return novo(cerveja);
 		
-		// Salvar no banco de dados...
+		cadastroCervejaService.salvar(cerveja);
 		attributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso!");
-		
-		System.out.println("cerveja.getEstilo(): " + cerveja.getEstilo());
-		if (cerveja.getEstilo() != null)
-			System.out.println(">>>> Estilo: " + cerveja.getEstilo().getCodigo());
 		
 		return new ModelAndView("redirect:/cervejas/novo");
 	}

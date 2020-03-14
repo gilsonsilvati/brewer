@@ -13,12 +13,14 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import br.com.brewer.model.Cerveja;
 import br.com.brewer.repository.Cervejas;
 
 @Configuration
-@EnableJpaRepositories(basePackageClasses = Cervejas.class) // Pega o pacote padrão (br.com.brewer.repository)
+@EnableJpaRepositories(basePackageClasses = Cervejas.class, enableDefaultTransactions = false) // Pega o pacote padrão (br.com.brewer.repository)
+@EnableTransactionManagement // Eu quero gerênciar a transação do BD (enableDefaultTransactions = false)
 public class JPAConfig {
 	
 	@Bean
