@@ -19,6 +19,8 @@ import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
+import br.com.brewer.validation.SKU;
+
 @Entity
 @Table(name = "cerveja")
 public class Cerveja implements Serializable {
@@ -29,13 +31,13 @@ public class Cerveja implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
+	@SKU
 	@NotBlank(message = "SKU é obrigatório")
 	private String sku;
 
 	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
 
-	@NotBlank(message = "Descrição é obrigatório")
 	@Size(min = 1, max = 50, message = "O tamanho da descrição deve está entre 1 e 50")
 	private String descricao;
 
