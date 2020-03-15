@@ -14,7 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -38,25 +42,37 @@ public class Cerveja implements Serializable {
 	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
 
-	@Size(min = 1, max = 50, message = "O tamanho da descrição deve está entre 1 e 50")
+	@NotBlank(message = "Descrição é obrigatória")
+	@Size(max = 50, message = "O tamanho da descrição deve está entre 1 e 50")
 	private String descricao;
 
+	@NotNull(message = "Valor é obrigatório")
+	@DecimalMin(value = "0.5", message = "Valor deve ser maior ou igual que R$ 0,50")
+	@DecimalMax(value = "9999999.99", message = "Valor da cerveja deve ser menor que R$ 9.999.999,99")
 	private BigDecimal valor;
 	
+	@NotNull(message = "Teor alcóolico é obrigatório")
+	@DecimalMin("0.01")
+	@DecimalMax(value = "100.0", message = "Teor alcóolico deve ser menor ou igual que 100")
 	@Column(name = "teor_alcoolico")
 	private BigDecimal teorAlcoolico;
 	
+	@DecimalMax(value = "100.0", message = "Comissão deve ser menor ou igual que 100")
 	private BigDecimal comissao;
 	
+	@Max(value = 9999, message = "Quantidade em estoque deve ser menor ou igual que 9.999")
 	@Column(name = "quantidade_estoque")
 	private Integer quantidadeEstoque;
 	
+	@NotNull(message = "Origem é obrigatória")
 	@Enumerated(EnumType.STRING)
 	private Origem origem;
 	
+	@NotNull(message = "Sabor é obrigatória")
 	@Enumerated(EnumType.STRING)
 	private Sabor sabor;
 	
+	@NotNull(message = "Estilo é obrigatória")
 	@ManyToOne
 	@JoinColumn(name = "codigo_estilo")
 	private Estilo estilo;
