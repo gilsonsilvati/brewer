@@ -13,13 +13,10 @@ Brewer.MaskMoney = (function() {
 	}
 	
 	return MaskMoney;
-	
 }());
 
 /* Função após a página ser carregada */
 $(function() {
-	
 	var maskMoney = new Brewer.MaskMoney();
 	maskMoney.enable();
-	
 });
