@@ -112,12 +112,15 @@
 				
 				<div class="row">
 					<div class="form-group  col-sm-12">
+						<input type="hidden" th:field="*{foto}" />
+						<input type="hidden" th:field="*{contentType}" />
+					
 						<label class="control-label">Foto</label>
 						
 						<div id="upload-drop" class="bw-upload">
 							<i class="glyphicon  glyphicon-cloud-upload"></i>
 							<span>Arraste a foto aqui ou </span>
-							<a class="bw-upload-form-file">selecione <input id="upload-select" type="file" accept=".jpg,.jpeg,.png"/></a>
+							<a class="bw-upload-form-file">selecione <input id="upload-select" type="file" accept=".jpg,.jpeg,.png" /></a>
 						</div>
 					</div>
 				</div>
@@ -142,7 +145,11 @@
 						type: 'json',
 						filelimit: 1,
 						allow: '*.(jpg|jpeg|png)',
-						action: '/brewer/fotos'
+						action: '/brewer/fotos',
+						complete: function(resposta) {
+							$('input[name=foto]').val(resposta.nome);
+							$('input[name=contentType]').val(resposta.contentType);
+						}
 				};
 				
 				UIkit.uploadDrop($('#upload-drop'), settings);

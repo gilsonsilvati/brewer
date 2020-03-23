@@ -3,12 +3,14 @@ package br.com.brewer.storage;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.brewer.dto.FotoDTO;
+
 public class FotoStorageRunnable implements Runnable {
 	
 	private MultipartFile[] files;
-	private DeferredResult<String> resultado;
+	private DeferredResult<FotoDTO> resultado;
 
-	public FotoStorageRunnable(MultipartFile[] files, DeferredResult<String> resultado) {
+	public FotoStorageRunnable(MultipartFile[] files, DeferredResult<FotoDTO> resultado) {
 		this.files = files;
 		this.resultado = resultado;
 	}
@@ -20,7 +22,11 @@ public class FotoStorageRunnable implements Runnable {
 		
 		// TODO: Salvar a foto no Sistema de Arquivos...
 		
-		resultado.setResult("OK! Foto recebida!");
+		
+		String nomeFoto = files[0].getOriginalFilename();
+		String contentType = files[0].getContentType();
+		
+		resultado.setResult(new FotoDTO(nomeFoto, contentType));
 	}
 
 }
