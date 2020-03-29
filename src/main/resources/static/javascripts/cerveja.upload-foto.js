@@ -25,6 +25,9 @@ Brewer.UploadFoto = (function() {
 		
 		UIkit.uploadDrop(this.uploadDrop, settings);
 		UIkit.uploadSelect($('#upload-select'), settings);
+		
+		if (this.inputNomeFoto.val())
+			onUploadCompleto.call(this, { nome: this.inputNomeFoto.val(), contentType: this.inputContentType.val() });
 	}
 	
 	function onUploadCompleto(resposta) {
@@ -33,7 +36,7 @@ Brewer.UploadFoto = (function() {
 		
 		this.uploadDrop.addClass('hidden');
 		
-		var htmlFotoCerveja = this.template({nomeFoto: resposta.nome});
+		var htmlFotoCerveja = this.template({ nomeFoto: resposta.nome });
 		this.containerFotoCerveja.append(htmlFotoCerveja);
 		
 		$('.js-remove-foto').on('click', onRemoverFoto.bind(this));
