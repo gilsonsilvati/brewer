@@ -7,6 +7,11 @@
 	font-size: 18px;
 }
 
+.bw-required > .control-label:after {
+	content: " *";
+	color: #FF0000;
+}
+
 /*
 ##################
 # COMPONENTES
