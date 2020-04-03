@@ -24,6 +24,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.springframework.util.StringUtils;
 
 import br.com.brewer.validation.SKU;
 
@@ -175,6 +176,10 @@ public class Cerveja implements Serializable {
 	}
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+	
+	public String getFotoOuMock() {
+		return StringUtils.isEmpty(foto) ? "cerveja-mock.png" : foto;
 	}
 	
 	/* Callbacks JPA */
