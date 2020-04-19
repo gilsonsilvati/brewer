@@ -40,7 +40,6 @@ public class CervejasImpl implements CervejasQueries {
 		
 		// Implementando ordenação
 		Sort sort = pageable.getSort();
-		System.out.println(">>> sort: " + sort);
 		
 		if (sort != null) {
 			Sort.Order order = sort.iterator().next();
