@@ -6,23 +6,26 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import br.com.brewer.model.Cerveja;
 import br.com.brewer.repository.filter.CervejaFilter;
+import br.com.brewer.repository.pagination.PaginationUtil;
 
 public class CervejasImpl implements CervejasQueries {
 
 	@PersistenceContext
 	private EntityManager manager;
+	
+	@Autowired
+	private PaginationUtil paginationUtil;
 	
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
@@ -30,23 +33,7 @@ public class CervejasImpl implements CervejasQueries {
 	public Page<Cerveja> filtrar(CervejaFilter filtro, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class); // Tirando a seção de dentro do manager
 		
-		// Implementando paginação
-		int paginaAtual = pageable.getPageNumber();
-		int totalRegistrosPorPagina = pageable.getPageSize();
-		int primeiroRegistro = paginaAtual * totalRegistrosPorPagina;
-		
-		criteria.setFirstResult(primeiroRegistro);
-		criteria.setMaxResults(totalRegistrosPorPagina);
-		
-		// Implementando ordenação
-		Sort sort = pageable.getSort();
-		
-		if (sort != null) {
-			Sort.Order order = sort.iterator().next();
-			String property = order.getProperty();
-			criteria.addOrder(order.isAscending() ? Order.asc(property) : Order.desc(property));
-		}
-		
+		paginationUtil.preparar(criteria, pageable);
 		adicionarFiltro(filtro, criteria);
 		
 		return new PageImpl<>(criteria.list(), pageable, total(filtro));
