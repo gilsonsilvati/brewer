@@ -26,6 +26,8 @@ import javax.validation.constraints.Size;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.springframework.util.StringUtils;
 
+import br.com.brewer.model.enumerations.Origem;
+import br.com.brewer.model.enumerations.Sabor;
 import br.com.brewer.validation.SKU;
 
 @Entity

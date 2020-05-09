@@ -16,15 +16,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.brewer.controller.page.PageWrapper;
 import br.com.brewer.model.Cerveja;
-import br.com.brewer.model.Origem;
-import br.com.brewer.model.Sabor;
+import br.com.brewer.model.enumerations.Origem;
+import br.com.brewer.model.enumerations.Sabor;
 import br.com.brewer.repository.Cervejas;
 import br.com.brewer.repository.Estilos;
 import br.com.brewer.repository.filter.CervejaFilter;
 import br.com.brewer.service.CadastroCervejaService;
 
 @Controller
-@RequestMapping("/cervejas")
+@RequestMapping("cervejas")
 public class CervejasController {
 	
 	@Autowired
@@ -36,7 +36,7 @@ public class CervejasController {
 	@Autowired
 	private CadastroCervejaService cadastroCervejaService;
 	
-	@RequestMapping("/novo")
+	@RequestMapping("novo")
 	public ModelAndView novo(Cerveja cerveja) {
 		ModelAndView mv = new ModelAndView("cerveja/CadastroCerveja");
 		mv.addObject("estilos", estilos.findAll());
@@ -46,7 +46,7 @@ public class CervejasController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/novo", method = RequestMethod.POST)
+	@RequestMapping(value = "novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors())
 			return novo(cerveja);

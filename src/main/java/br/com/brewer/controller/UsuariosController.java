@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/usuarios")
+@RequestMapping("usuarios")
 public class UsuariosController {
 	
-	@RequestMapping("/novo")
+	@RequestMapping("novo")
 	public String novo() {
 		return "usuario/CadastroUsuario";
 	}

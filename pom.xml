@@ -42,6 +42,9 @@
 		<!-- Thymeleaf Layout Dialect -->
 		<thymeleaf-layout-dialect.version>2.4.1</thymeleaf-layout-dialect.version>
 		
+		<!-- Thymeleaf extras data attribute -->
+		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
+		
 		<!-- Bean Validation / Hibernate Validator -->
 		<hibernate-validator.version>6.0.2.Final</hibernate-validator.version>
 		
@@ -122,6 +125,15 @@
 		    <groupId>nz.net.ultraq.thymeleaf</groupId>
 		    <artifactId>thymeleaf-layout-dialect</artifactId>
 		    <version>${thymeleaf-layout-dialect.version}</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+		<!-- Thymeleaf extras data attribute -->
+		<dependency>
+			<groupId>com.github.mxab.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-data-attribute</artifactId>
+			<version>${thymeleaf-extras-data-attribute.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		
 		<!-- Bean Validation / Hibernate Validator (Implememtação) -->
@@ -137,21 +149,25 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
 			<version>${log4j.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 			<version>${log4j.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>${log4j.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${jcl-over-slf4j.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		
 		<!-- JPA (API) / Hibernate (Implementação) -->
@@ -175,6 +191,7 @@
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-lang3</artifactId>
 		    <version>3.9</version>
+		    <scope>compile</scope>
 		</dependency>
 		
 		<!-- MySQL Driver -->
@@ -190,6 +207,7 @@
 		    <groupId>org.springframework.data</groupId>
 		    <artifactId>spring-data-jpa</artifactId>
 		    <version>${spring-data-jpa.version}</version>
+		    <scope>compile</scope>
 		</dependency>
 		
 		<!-- Jackson - JSON -->

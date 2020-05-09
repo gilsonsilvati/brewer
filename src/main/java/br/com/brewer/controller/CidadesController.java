@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/cidades")
+@RequestMapping("cidades")
 public class CidadesController {
 	
-	@RequestMapping("/nova")
+	@RequestMapping("nova")
 	public String nova() {
 		return "cidade/CadastroCidade";
 	}

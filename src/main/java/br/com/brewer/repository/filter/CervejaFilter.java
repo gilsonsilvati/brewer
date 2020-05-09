@@ -3,8 +3,8 @@ package br.com.brewer.repository.filter;
 import java.math.BigDecimal;
 
 import br.com.brewer.model.Estilo;
-import br.com.brewer.model.Origem;
-import br.com.brewer.model.Sabor;
+import br.com.brewer.model.enumerations.Origem;
+import br.com.brewer.model.enumerations.Sabor;
 
 public class CervejaFilter {
 

@@ -1,4 +1,4 @@
-package br.com.brewer.model;
+package br.com.brewer.model.enumerations;
 
 public enum Origem {
 	
