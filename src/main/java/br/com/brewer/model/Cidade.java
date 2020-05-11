@@ -4,16 +4,21 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name = "estado")
-public class Estado implements Serializable {
+@Table(name = "cidade")
+public class Cidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -22,7 +27,11 @@ public class Estado implements Serializable {
 	private Long codigo;
 	
 	private String nome;
-	private String sigla;
+	
+	@ManyToOne(fetch = FetchType.LAZY) // Ignora no JPA 1°
+	@JoinColumn(name = "codigo_estado")
+	@JsonIgnore // Ignora na View 2°
+	private Estado estado;
 	
 	public Long getCodigo() {
 		return codigo;
@@ -38,11 +47,11 @@ public class Estado implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getSigla() {
-		return sigla;
+	public Estado getEstado() {
+		return estado;
 	}
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	@Override
@@ -58,7 +67,7 @@ public class Estado implements Serializable {
 		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		
-		Estado other = (Estado) obj;
+		Cidade other = (Cidade) obj;
 		return new EqualsBuilder().append(codigo, other.codigo).isEquals();
 	}
 
