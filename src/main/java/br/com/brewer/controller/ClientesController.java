@@ -14,6 +14,7 @@ import br.com.brewer.model.Cliente;
 import br.com.brewer.model.enumerations.TipoPessoa;
 import br.com.brewer.repository.Estados;
 import br.com.brewer.service.CadastroClienteService;
+import br.com.brewer.service.exception.CpfCnpjJaCadastradoException;
 
 @Controller
 @RequestMapping("clientes")
@@ -39,8 +40,14 @@ public class ClientesController {
 		if (result.hasErrors())
 			return novo(cliente);
 		
-		cadastroClienteService.salvar(cliente);
-		attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso!");
+		try {
+			cadastroClienteService.salvar(cliente);
+			attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso!");
+		} catch (CpfCnpjJaCadastradoException e) {
+			result.rejectValue("cpfOuCnpj", e.getMessage(), e.getMessage());
+			
+			return novo(cliente);
+		}
 		
 		return new ModelAndView("redirect:/clientes/novo");
 	}
