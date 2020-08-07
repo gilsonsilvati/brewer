@@ -48,7 +48,7 @@ public class Cliente implements Serializable {
 	@Email(message = "E-mail inválido")
 	private String email;
 
-	@NotNull(message = "Tipo pessoa é obrigatporio")
+	@NotNull(message = "Tipo pessoa é obrigatório")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_pessoa")
 	private TipoPessoa tipoPessoa;
