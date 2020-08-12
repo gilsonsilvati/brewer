@@ -2,12 +2,16 @@ package br.com.brewer.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.brewer.controller.page.PageWrapper;
 import br.com.brewer.model.Cidade;
 import br.com.brewer.repository.Cidades;
 import br.com.brewer.repository.Estados;
+import br.com.brewer.repository.filter.CidadeFilter;
 import br.com.brewer.service.CadastroCidadeService;
 import br.com.brewer.service.exception.NomeCidadeJaCadastradaException;
 
@@ -64,6 +70,17 @@ public class CidadesController {
 		attributes.addFlashAttribute("mensagem", "Cidade salva com sucesso!");
 		
 		return new ModelAndView("redirect:/cidades/nova");
+	}
+	
+	@GetMapping
+	public ModelAndView pesquisar(CidadeFilter cidadeFilter, BindingResult result, @PageableDefault(size = 5) Pageable pageable, HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("cidade/PesquisaCidades");
+		mv.addObject("estados", estados.findAll());
+		
+		PageWrapper<Cidade> paginaWrapper = new PageWrapper<>(cidades.filtrar(cidadeFilter, pageable), httpServletRequest);
+		mv.addObject("pagina", paginaWrapper);
+		
+		return mv;
 	}
 
 }
