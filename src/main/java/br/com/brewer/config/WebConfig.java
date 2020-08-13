@@ -2,8 +2,12 @@ package br.com.brewer.config;
 
 import java.math.BigDecimal;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.BeansException;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +31,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
+import com.google.common.cache.CacheBuilder;
 
 import br.com.brewer.controller.CervejasController;
 import br.com.brewer.controller.converter.CidadeConverter;
@@ -39,6 +44,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @ComponentScan(basePackageClasses = { CervejasController.class })
+@EnableCaching
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 	
 	private ApplicationContext applicationContext;
@@ -104,6 +110,18 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	@Bean
 	public LocaleResolver localeResolver() {
 		return new FixedLocaleResolver(new Locale("pt", "BR"));
+	}
+	
+	@Bean
+	public CacheManager cacheManager() {
+		CacheBuilder<Object, Object> cacheBuilder = CacheBuilder.newBuilder()
+				.maximumSize(3)
+				.expireAfterAccess(20, TimeUnit.SECONDS);
+		
+		GuavaCacheManager cacheManager = new GuavaCacheManager();
+		cacheManager.setCacheBuilder(cacheBuilder);
+		
+		return cacheManager;
 	}
 
 }

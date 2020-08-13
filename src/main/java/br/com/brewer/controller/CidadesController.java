@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
@@ -49,11 +51,17 @@ public class CidadesController {
 	}
 	
 	@RequestMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@Cacheable(value = "cidades", key = "#codigoEstado")
 	public @ResponseBody List<Cidade> pesquisarPorCodigoEstado(@RequestParam(name = "estado", defaultValue = "-1") Long codigoEstado) {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) { }
+		
 		return cidades.findByEstadoCodigo(codigoEstado);
 	}
 	
 	@PostMapping("nova")
+	@CacheEvict(value = "cidades", key = "#cidade.estado.codigo", condition = "#cidade.temEstado()")
 	public ModelAndView salvar(@Valid Cidade cidade, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			return nova(cidade);
