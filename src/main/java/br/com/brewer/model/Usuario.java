@@ -14,12 +14,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
+import br.com.brewer.validation.AtributoConfirmacao;
+
+@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha", message = "Confirmação de senha não confere")
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
@@ -37,9 +41,11 @@ public class Usuario implements Serializable {
 	@Email(message = "E-mail inválido")
 	private String email;
 
+	private boolean ativo;
 	private String senha;
-
-	private Boolean ativo;
+	
+	@Transient
+	private String confirmacaoSenha;
 
 	@NotNull(message = "Selecione pelo menos um grupo")
 	@ManyToMany
@@ -71,20 +77,27 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+	
 	public String getSenha() {
 		return senha;
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-	public Boolean getAtivo() {
-		return ativo;
+	
+	public String getConfirmacaoSenha() {
+		return confirmacaoSenha;
 	}
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
+	public void setConfirmacaoSenha(String confirmacaoSenha) {
+		this.confirmacaoSenha = confirmacaoSenha;
 	}
-
+	
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
