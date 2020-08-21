@@ -69,13 +69,12 @@ public class CidadesController {
 		
 		try {
 			cadastroCidadeService.salvar(cidade);
+			attributes.addFlashAttribute("mensagem", "Cidade salva com sucesso!");
 		} catch (NomeCidadeJaCadastradaException e) {
 			result.rejectValue("nome", e.getMessage(), e.getMessage());
 			
 			return nova(cidade);
 		}
-		
-		attributes.addFlashAttribute("mensagem", "Cidade salva com sucesso!");
 		
 		return new ModelAndView("redirect:/cidades/nova");
 	}

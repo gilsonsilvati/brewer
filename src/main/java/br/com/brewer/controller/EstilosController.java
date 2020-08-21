@@ -47,12 +47,11 @@ public class EstilosController {
 		
 		try {
 			cadastroEstiloService.salvar(estilo);
+			attributes.addFlashAttribute("mensagem", "Estilo salvo com sucesso!");
 		} catch (NomeEstiloJaCadastradoException e) {
 			result.rejectValue("nome", e.getMessage(), e.getMessage());
 			return novo(estilo);
 		}
-		
-		attributes.addFlashAttribute("mensagem", "Estilo salvo com sucesso!");
 		
 		return new ModelAndView("redirect:/estilos/novo");
 	}
