@@ -14,6 +14,7 @@ import br.com.brewer.model.Usuario;
 import br.com.brewer.repository.Grupos;
 import br.com.brewer.service.CadastroUsuarioService;
 import br.com.brewer.service.exception.EmailUsuarioJaCadastradoException;
+import br.com.brewer.service.exception.SenhaObrigatoriaUsuarioException;
 
 @Controller
 @RequestMapping("usuarios")
@@ -44,7 +45,9 @@ public class UsuariosController {
 			attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso");
 		} catch (EmailUsuarioJaCadastradoException e) {
 			result.rejectValue("email", e.getMessage(), e.getMessage());
-			
+			return novo(usuario);
+		} catch (SenhaObrigatoriaUsuarioException e) {
+			result.rejectValue("senha", e.getMessage(), e.getMessage());
 			return novo(usuario);
 		}
 		

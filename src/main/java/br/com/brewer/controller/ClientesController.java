@@ -55,7 +55,6 @@ public class ClientesController {
 			attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso!");
 		} catch (CpfCnpjJaCadastradoException e) {
 			result.rejectValue("cpfOuCnpj", e.getMessage(), e.getMessage());
-			
 			return novo(cliente);
 		}
 		
