@@ -36,7 +36,7 @@ public class ClientesController {
 	@Autowired
 	private Clientes clientes;
 	
-	@RequestMapping("novo")
+	@RequestMapping("/novo")
 	public ModelAndView novo(Cliente cliente) {
 		ModelAndView mv = new ModelAndView("cliente/CadastroCliente");
 		mv.addObject("tiposPessoa", TipoPessoa.values());
@@ -45,7 +45,7 @@ public class ClientesController {
 		return mv;
 	}
 	
-	@PostMapping("novo")
+	@PostMapping("/novo")
 	public ModelAndView cadastrar(@Valid Cliente cliente, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors())
 			return novo(cliente);

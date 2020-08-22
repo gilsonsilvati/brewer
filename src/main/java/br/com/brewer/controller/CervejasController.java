@@ -36,7 +36,7 @@ public class CervejasController {
 	@Autowired
 	private CadastroCervejaService cadastroCervejaService;
 	
-	@RequestMapping("novo")
+	@RequestMapping("/novo")
 	public ModelAndView novo(Cerveja cerveja) {
 		ModelAndView mv = new ModelAndView("cerveja/CadastroCerveja");
 		mv.addObject("estilos", estilos.findAll());
@@ -46,7 +46,7 @@ public class CervejasController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors())
 			return novo(cerveja);

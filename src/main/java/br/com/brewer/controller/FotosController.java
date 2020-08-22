@@ -32,12 +32,12 @@ public class FotosController {
 		return resultado;
 	}
 	
-	@GetMapping("temp/{nome:.*}") // Colocando os ':' consigo passar uma EL (Expression Language -> Linguagem de Expressão)
+	@GetMapping("/temp/{nome:.*}") // Colocando os ':' consigo passar uma EL (Expression Language -> Linguagem de Expressão)
 	public byte[] recuperarFotoTemporaria(@PathVariable String nome) {
 		return fotoStorage.recuperarFotoTemporaria(nome);
 	}
 	
-	@GetMapping("{nome:.*}") // Colocando os ':' consigo passar uma EL (Expression Language -> Linguagem de Expressão)
+	@GetMapping("/{nome:.*}") // Colocando os ':' consigo passar uma EL (Expression Language -> Linguagem de Expressão)
 	public byte[] recuperar(@PathVariable String nome) {
 		return fotoStorage.recuperar(nome);
 	}

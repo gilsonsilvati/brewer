@@ -35,12 +35,12 @@ public class EstilosController {
 	@Autowired
 	private Estilos estilos;
 	
-	@RequestMapping("novo")
+	@RequestMapping("/novo")
 	public ModelAndView novo(Estilo estilo) {
 		return new ModelAndView("estilo/CadastroEstilo");
 	}
 	
-	@RequestMapping(value = "novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Estilo estilo, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors())
 			return novo(estilo);

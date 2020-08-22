@@ -26,7 +26,7 @@ public class UsuariosController {
 	@Autowired
 	private Grupos grupos;
 	
-	@RequestMapping("novo")
+	@RequestMapping("/novo")
 	public ModelAndView novo(Usuario usuario) {
 		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
 		mv.addObject("grupos", grupos.findAll());
@@ -34,7 +34,7 @@ public class UsuariosController {
 		return mv;
 	}
 	
-	@PostMapping("novo")
+	@PostMapping("/novo")
 	public ModelAndView salvar(@Valid Usuario usuario, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			return novo(usuario);
