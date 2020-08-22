@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
@@ -46,7 +47,7 @@ public class Usuario implements Serializable {
 	@Transient
 	private String confirmacaoSenha;
 
-//	@NotNull(message = "Selecione pelo menos um grupo")
+	@Size(min = 1, message = "Selecione pelo menos um grupo")
 	@ManyToMany
 	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario"), 
 		inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))	
