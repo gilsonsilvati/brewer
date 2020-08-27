@@ -27,7 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("CADASTRO_CLIENTE");
 		
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-		
 	}
 	
 	@Override
@@ -41,6 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
+				.antMatchers("/cidades/nova").hasRole("CADASTRAR_CIDADE")
+				.antMatchers("/usuarios/**").hasRole("CADASTRAR_USUARIO")
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
