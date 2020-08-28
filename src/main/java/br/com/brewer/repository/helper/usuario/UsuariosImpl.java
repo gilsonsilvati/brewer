@@ -1,5 +1,6 @@
 package br.com.brewer.repository.helper.usuario;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -17,6 +18,13 @@ public class UsuariosImpl implements UsuariosQueries {
 		return manager.createQuery("FROM Usuario WHERE lower(email) = lower(:email) AND ativo = true", Usuario.class)
 				.setParameter("email", email)
 				.getResultList().stream().findFirst();
+	}
+
+	@Override
+	public List<String> permissoes(Usuario usuario) {
+		return manager.createQuery("SELECT DISTINCT p.nome FROM Usuario u INNER JOIN u.grupos g INNER JOIN g.permissoes p WHERE u = :usuario", String.class)
+				.setParameter("usuario", usuario)
+				.getResultList();
 	}
 
 }
