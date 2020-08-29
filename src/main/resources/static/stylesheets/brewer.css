@@ -3,14 +3,12 @@
 # UTILIDADES
 ######################
 */
-
 .bw-glyphicon-large {
 	font-size: 18px;
 }
 
 .bw-required > .control-label:after {
-	content: " *";
-	color: #FF0000;
+	content: "*";
 }
 
 
@@ -145,6 +143,16 @@
 }
 
 .table-clientes-col-cidade-estado {
+	width: 140px;
+	text-align: right;
+}
+
+/* Colunas - Pesquisa de cidades */
+.table-cidades-col-nome {
+	
+}
+
+.table-cidades-col-estado {
 	width: 140px;
 	text-align: right;
 }
