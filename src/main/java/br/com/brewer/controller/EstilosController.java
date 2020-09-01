@@ -35,6 +35,16 @@ public class EstilosController {
 	@Autowired
 	private Estilos estilos;
 	
+	@GetMapping
+	public ModelAndView pesquisar(EstiloFilter estiloFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("estilo/PesquisaEstilos");
+		
+		PageWrapper<Estilo> paginaWrapper = new PageWrapper<>(estilos.filtrar(estiloFilter, pageable), httpServletRequest);
+		mv.addObject("pagina", paginaWrapper);
+		
+		return mv;
+	}
+	
 	@RequestMapping("/novo")
 	public ModelAndView novo(Estilo estilo) {
 		return new ModelAndView("estilo/CadastroEstilo");
@@ -42,8 +52,9 @@ public class EstilosController {
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Estilo estilo, BindingResult result, RedirectAttributes attributes) {
-		if (result.hasErrors())
+		if (result.hasErrors()) {
 			return novo(estilo);
+		}
 		
 		try {
 			cadastroEstiloService.salvar(estilo);
@@ -59,22 +70,13 @@ public class EstilosController {
 	// Recebendo requisição via Ajax (javascript)
 	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> salvar(@RequestBody @Valid Estilo estilo, BindingResult result) {
-		if (result.hasErrors())
+		if (result.hasErrors()) {
 			return ResponseEntity.badRequest().body(result.getFieldError("nome").getDefaultMessage());
+		}
 		
 		estilo = cadastroEstiloService.salvar(estilo); /* ControllerAdviceExceptionHandler */
 		
 		return ResponseEntity.ok(estilo);
-	}
-	
-	@GetMapping
-	public ModelAndView pesquisar(EstiloFilter estiloFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest) {
-		ModelAndView mv = new ModelAndView("estilo/PesquisaEstilos");
-		
-		PageWrapper<Estilo> paginaWrapper = new PageWrapper<>(estilos.filtrar(estiloFilter, pageable), httpServletRequest);
-		mv.addObject("pagina", paginaWrapper);
-		
-		return mv;
 	}
 
 }

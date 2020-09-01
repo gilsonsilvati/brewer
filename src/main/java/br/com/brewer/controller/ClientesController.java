@@ -36,6 +36,17 @@ public class ClientesController {
 	@Autowired
 	private Clientes clientes;
 	
+	@GetMapping
+	public ModelAndView pesquisar(ClienteFilter clienteFilter, BindingResult result, @PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("cliente/PesquisaClientes");
+		mv.addObject("tiposPessoa", TipoPessoa.values());
+		
+		PageWrapper<Cliente> paginaWrapper = new PageWrapper<>(clientes.filtrar(clienteFilter, pageable), httpServletRequest);
+		mv.addObject("pagina", paginaWrapper);
+		
+		return mv;
+	}
+	
 	@RequestMapping("/novo")
 	public ModelAndView novo(Cliente cliente) {
 		ModelAndView mv = new ModelAndView("cliente/CadastroCliente");
@@ -47,8 +58,9 @@ public class ClientesController {
 	
 	@PostMapping("/novo")
 	public ModelAndView cadastrar(@Valid Cliente cliente, BindingResult result, RedirectAttributes attributes) {
-		if (result.hasErrors())
+		if (result.hasErrors()) {
 			return novo(cliente);
+		}
 		
 		try {
 			cadastroClienteService.salvar(cliente);
@@ -59,17 +71,6 @@ public class ClientesController {
 		}
 		
 		return new ModelAndView("redirect:/clientes/novo");
-	}
-	
-	@GetMapping
-	public ModelAndView pesquisar(ClienteFilter clienteFilter, BindingResult result, @PageableDefault(size = 3) Pageable pageable, HttpServletRequest httpServletRequest) {
-		ModelAndView mv = new ModelAndView("cliente/PesquisaClientes");
-		mv.addObject("tiposPessoa", TipoPessoa.values());
-		
-		PageWrapper<Cliente> paginaWrapper = new PageWrapper<>(clientes.filtrar(clienteFilter, pageable), httpServletRequest);
-		mv.addObject("pagina", paginaWrapper);
-		
-		return mv;
 	}
 
 }
