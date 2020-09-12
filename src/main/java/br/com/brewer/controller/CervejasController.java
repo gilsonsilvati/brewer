@@ -37,7 +37,7 @@ public class CervejasController {
 	private CadastroCervejaService cadastroCervejaService;
 	
 	@GetMapping
-	public ModelAndView pesquisar(CervejaFilter cervejaFilter, BindingResult result, HttpServletRequest httpServletRequest, @PageableDefault(size = 2) Pageable pageable) {
+	public ModelAndView pesquisar(CervejaFilter cervejaFilter, HttpServletRequest httpServletRequest, @PageableDefault(size = 2) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("cerveja/PesquisaCervejas");
 		mv.addObject("estilos", estilos.findAll());
 		mv.addObject("sabores", Sabor.values());

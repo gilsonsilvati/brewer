@@ -32,7 +32,6 @@ public class CervejasImpl implements CervejasQueries {
 	@Override
 	public Page<Cerveja> filtrar(CervejaFilter filtro, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class); // Tirando a seção de dentro do manager
-		
 		paginationUtil.preparar(criteria, pageable);
 		adicionarFiltro(filtro, criteria);
 		
@@ -41,9 +40,7 @@ public class CervejasImpl implements CervejasQueries {
 	
 	private Long total(CervejaFilter filtro) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Cerveja.class);
-		
 		adicionarFiltro(filtro, criteria);
-		
 		criteria.setProjection(Projections.rowCount());
 		
 		return (Long) criteria.uniqueResult();
