@@ -1,4 +1,4 @@
-var Brewer = Brewer || {}; // Se não existir cria um novo
+var Brewer = Brewer || {};
 
 Brewer.EstiloCadastroRapido = (function() {
 	

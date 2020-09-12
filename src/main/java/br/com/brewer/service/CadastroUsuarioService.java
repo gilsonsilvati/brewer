@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import br.com.brewer.model.Usuario;
+import br.com.brewer.model.enumerations.StatusUsuario;
 import br.com.brewer.repository.Usuarios;
 import br.com.brewer.service.exception.EmailUsuarioJaCadastradoException;
 import br.com.brewer.service.exception.SenhaObrigatoriaUsuarioException;
@@ -40,6 +41,11 @@ public class CadastroUsuarioService {
 		}
 		
 		usuarios.save(usuario);
+	}
+
+	@Transactional
+	public void alterarStatus(Long[] codigos, StatusUsuario statusUsuario) {
+		statusUsuario.executar(codigos, usuarios);
 	}
 
 }

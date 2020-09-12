@@ -4,6 +4,7 @@ import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 
+import org.springframework.web.filter.HttpPutFormContentFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import br.com.brewer.config.JPAConfig;
@@ -40,7 +41,9 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 //
 //		return new Filter[] { characterEncodingFilter };
 		
-		return new Filter[] { };
+		HttpPutFormContentFilter httpPutFormContentFilter = new HttpPutFormContentFilter();
+		
+		return new Filter[] { httpPutFormContentFilter };
 	}
 	
 	/**
