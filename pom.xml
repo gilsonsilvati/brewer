@@ -79,6 +79,9 @@
 		
 		<!-- Thymeleaf - Extras Spring Security -->
 		<thymeleaf-extras-springsecurity.version>3.0.4.RELEASE</thymeleaf-extras-springsecurity.version>
+		
+		<!-- JAXB -->
+		<jaxb.version>2.3.1</jaxb.version>
 	</properties>
 	
 	<!-- Gerenciador de Dependencias do Spring Framework -->
@@ -282,6 +285,12 @@
 		    <scope>compile</scope>
 		</dependency>
 		
+		<!-- JAXB -->
+		<dependency>
+		    <groupId>javax.xml.bind</groupId>
+		    <artifactId>jaxb-api</artifactId>
+		    <version>${jaxb.version}</version>
+		</dependency>
 	</dependencies>
 	
 	<build>

@@ -1,5 +1,6 @@
 package br.com.brewer.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +15,7 @@ public interface Clientes extends JpaRepository<Cliente, Long>, ClientesQueries 
 	public Optional<Cliente> findByNomeIgnoreCase(String nome);
 
 	public Optional<Cliente> findByCpfOuCnpj(String cpfOuCnpj);
+
+	public List<Cliente> findByNomeStartingWithIgnoreCase(String nome);
 
 }

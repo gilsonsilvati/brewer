@@ -24,6 +24,8 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 import org.hibernate.validator.group.GroupSequenceProvider;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.brewer.model.enumerations.TipoPessoa;
 import br.com.brewer.model.validation.ClienteGroupSequenceProvider;
 import br.com.brewer.model.validation.group.CnpjGroup;
@@ -61,6 +63,7 @@ public class Cliente implements Serializable {
 	private String cpfOuCnpj;
 
 	@Embedded
+	@JsonIgnore
 	private Endereco endereco;
 	
 	public Long getCodigo() {

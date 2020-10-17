@@ -61,7 +61,7 @@ Brewer.UploadFoto = (function() {
 	
 	return UploadFoto;
 	
-})();
+}());
 
 $(function() {
 	var uploadFoto = new Brewer.UploadFoto();
