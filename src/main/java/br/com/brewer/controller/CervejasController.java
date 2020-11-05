@@ -1,5 +1,7 @@
 package br.com.brewer.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -11,10 +13,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.brewer.controller.page.PageWrapper;
+import br.com.brewer.dto.CervejaDTO;
 import br.com.brewer.model.Cerveja;
 import br.com.brewer.model.enumerations.Origem;
 import br.com.brewer.model.enumerations.Sabor;
@@ -69,6 +73,11 @@ public class CervejasController {
 		attributes.addFlashAttribute("mensagem", "Cerveja salva com sucesso!");
 		
 		return new ModelAndView("redirect:/cervejas/novo");
+	}
+	
+	@GetMapping("/filtro")
+	public @ResponseBody List<CervejaDTO> pesquisar(String skuOuNome) {
+		return cervejas.porSkuOuNome(skuOuNome);
 	}
 
 }
